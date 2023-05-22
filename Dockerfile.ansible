@@ -12,6 +12,4 @@ RUN cd /root && mkdir -p /root/.ssh/
 RUN cp /root/id_rsa /root/.ssh/
 RUN chmod 400 /root/.ssh/id_rsa
 RUN chmod 400 /root/id_rsa
-
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
-ENTRYPOINT [ "/bin/bash" ]
+COPY ssh.config /root/.ssh/config

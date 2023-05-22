@@ -5,20 +5,42 @@ services:
     hostname: ansible
     tty: true
     volumes:
-      - ./shared-folder:/shared-folder
+      - ./playgrounds:/playgrounds
     build:
       context: .
       dockerfile: Dockerfile.ansible
-  web:
-    hostname: web
-    ports:
-      - "999:999"
+  web01:
+    hostname: web01
     image: itsmedigio/rhel
     build:
       context: .
       dockerfile: Dockerfile.centos
-  db:
-    hostname: db
+  web02:
+    hostname: web02
+    image: itsmedigio/rhel
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+  app01:
+    hostname: app01
+    image: itsmedigio/rhel
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+  app02:
+    hostname: app02
+    image: itsmedigio/rhel
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+  crit01:
+    hostname: crit01
+    image: itsmedigio/rhel
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+  db01:
+    hostname: db01
     image: itsmedigio/rhel
     build:
       context: .
