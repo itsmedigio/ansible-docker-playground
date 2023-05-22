@@ -1,0 +1,33 @@
+---
+- name: Install and start httpd, test Apache, set permissions, and create index.html
+  hosts: all
+  become: true
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Start httpd service
+      command: /usr/sbin/httpd -k start
+
+    - name: Create index.html file
+      copy:
+        content: "hello world"
+        dest: /var/www/html/index.html
+        mode: "0644"
+        owner: apache
+        group: apache
+
+    - name: Test Apache
+      uri:
+        url: "http://localhost/"
+        method: GET
+        status_code: 200
+        timeout: 5
+        return_content: no
+      register: apache_check
+
+    - name: Print Apache status
+      debug:
+        var: apache_check.status
