@@ -1,3 +1,16 @@
-FROM sickp/centos-sshd
+FROM centos:latest
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum update -y && \
+    yum install -y openssh-server && \
+    yum clean all
+RUN mkdir -p /root/.ssh
 COPY id_rsa.pub /root/.ssh/authorized_keys
 RUN chmod 400 /root/.ssh/authorized_keys
+# Enable passwordless SSH access and root user
+RUN sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
+# Create root key
+RUN ssh-keygen -A
+CMD ["/usr/sbin/sshd", "-D"]

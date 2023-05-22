@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   ansible:
-    image: shellwhale/ansible
+    image: itsmedigio/ansible
     hostname: ansible
     tty: true
     volumes:
@@ -13,14 +13,13 @@ services:
     hostname: web
     ports:
       - "999:999"
-    image: shellwhale/centos
+    image: itsmedigio/rhel
     build:
       context: .
       dockerfile: Dockerfile.centos
   db:
     hostname: db
-    image: shellwhale/centos
+    image: itsmedigio/rhel
     build:
       context: .
       dockerfile: Dockerfile.centos
-      
