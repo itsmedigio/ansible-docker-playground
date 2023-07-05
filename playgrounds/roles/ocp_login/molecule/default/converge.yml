@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Include isp_ocp.ocp_login"
+      ansible.builtin.include_role:
+        name: "isp_ocp.ocp_login"

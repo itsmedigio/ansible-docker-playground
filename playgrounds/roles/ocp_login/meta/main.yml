@@ -1,5 +1,6 @@
 galaxy_info:
   author: your name
+  namespace: isp_ocp
   description: your role description
   company: your company (optional)
 
