@@ -1,0 +1,11 @@
+---
+- name: Set OCP Token
+  set_fact:
+    ocp_login_token: ""
+
+- name: Login to OpenShift
+  include_role:
+    name: openshift.login
+
+  vars:
+    ocp_login_token: "{{ clusters[cluster_openshift].token }}"
